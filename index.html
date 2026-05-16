@@ -1327,17 +1327,7 @@
     const revealItems = document.querySelectorAll('.reveal');
     const contactForm = document.querySelector('.contact-form');
 
-    let currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    root.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
-
-    function updateThemeIcon(theme) {
-      if (!themeToggle) return;
-      themeToggle.innerHTML = theme === 'dark'
-        ? '<i class="fa-regular fa-sun"></i>'
-        : '<i class="fa-regular fa-moon"></i>';
-      themeToggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
-    }
+   
 
     themeToggle?.addEventListener('click', () => {
       currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
