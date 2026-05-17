@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Certificates Portfolio</title>
+
+<!-- GOOGLE FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(to right,#eef5fc,#dfefff);
+    color:#0f172a;
+    overflow-x:hidden;
+    position:relative;
+}
+
+/* GRID BACKGROUND */
+
+body::before{
+    content:'';
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-image:
+    linear-gradient(rgba(15,23,42,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,23,42,0.04) 1px, transparent 1px);
+    background-size:60px 60px;
+    z-index:-1;
+}
+
+/* BACK BUTTON */
+
+/* BACK BUTTON */
+
+.back-btn{
+    position:fixed;
+    top:20px;
+    left:20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    padding:0 20px;
+    height:50px;
+
+    border:none;
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-size:1rem;
+    font-weight:600;
+    color:#0f172a;
+
+    backdrop-filter:blur(18px);
+    background:rgba(255,255,255,0.45);
+
+    border:1px solid rgba(255,255,255,0.5);
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+
+    transition:all 0.35s ease;
+
+    z-index:2000;
+}
+
+.back-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 22px rgba(56,189,248,0.35);
+    color:#38bdf8;
+}
+
+/* HERO SECTION */
+
+.hero{
+    min-height:90vh;
+    padding:120px 8% 80px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.tag{
+    width:fit-content;
+    padding:14px 28px;
+    border-radius:50px;
+    background:rgba(56,189,248,0.12);
+    color:#1d4ed8;
+    font-weight:600;
+    margin-bottom:35px;
+    backdrop-filter:blur(10px);
+}
+
+.hero h1{
+    font-size:4.5rem;
+    line-height:1.05;
+    max-width:700px;
+    font-weight:800;
+    margin-bottom:25px;
+    letter-spacing:-2px;
+}
+
+.hero p{
+    max-width:700px;
+    font-size:1.15rem;
+    line-height:1.9;
+    color:#4b5563;
+}
+
+/* SEARCH */
+
+.search-box{
+    margin-top:40px;
+    width:320px;
+}
+
+.search-box input{
+    width:100%;
+    padding:18px 22px;
+    border:none;
+    border-radius:20px;
+    outline:none;
+    font-size:1rem;
+    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,0.4);
+    border:1px solid rgba(255,255,255,0.5);
+    box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    transition:0.3s ease;
+}
+
+.search-box input:focus{
+    transform:scale(1.02);
+    box-shadow:0 0 20px rgba(56,189,248,0.2);
+}
+
+/* CERTIFICATES */
+
+.certificates{
+    padding:40px 8% 120px;
+}
+
+.section-title{
+    font-size:2.7rem;
+    margin-bottom:50px;
+    font-weight:700;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:35px;
+}
+
+/* CARD */
+
+.card{
+    position:relative;
+    overflow:hidden;
+    border-radius:30px;
+    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,0.38);
+    border:1px solid rgba(255,255,255,0.4);
+    box-shadow:0 15px 35px rgba(0,0,0,0.08);
+    cursor:pointer;
+
+    transition:
+    transform 0.45s ease,
+    box-shadow 0.45s ease,
+    background 0.45s ease;
+
+    animation:float 4s ease-in-out infinite;
+}
+
+.card:hover{
+    transform:translateY(-12px) scale(1.02);
+    box-shadow:0 0 35px rgba(56,189,248,0.35);
+}
+
+.card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    transition:0.5s ease;
+}
+
+.card:hover img{
+    transform:scale(1.08);
+}
+
+.card-content{
+    padding:25px;
+}
+
+.card-content h3{
+    font-size:1.35rem;
+    margin-bottom:10px;
+}
+
+.card-content p{
+    color:#4b5563;
+    margin-bottom:8px;
+}
+
+/* OVERLAY */
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(15,23,42,0.9),transparent);
+    display:flex;
+    align-items:flex-end;
+    padding:25px;
+    opacity:0;
+    transition:0.45s ease;
+}
+
+.card:hover .overlay{
+    opacity:1;
+}
+
+.overlay button{
+    padding:14px 24px;
+    border:none;
+    border-radius:14px;
+    background:#38bdf8;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.overlay button:hover{
+    transform:scale(1.05);
+}
+
+/* FOOTER */
+
+footer{
+    padding:40px 8%;
+    text-align:center;
+    color:#4b5563;
+    font-size:0.95rem;
+}
+
+/* FLOATING ANIMATION */
+
+@keyframes float{
+    0%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+    100%{
+        transform:translateY(0px);
+    }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.hero h1{
+    font-size:3.5rem;
+}
+
+}
+
+@media(max-width:700px){
+
+.hero{
+    padding:120px 6% 70px;
+}
+
+.hero h1{
+    font-size:2.4rem;
+    line-height:1.15;
+    letter-spacing:-1px;
+}
+
+.hero p{
+    font-size:0.95rem;
+    line-height:1.7;
+}
+
+.tag{
+    font-size:0.75rem;
+    padding:10px 18px;
+}
+
+.search-box{
+    width:100%;
+}
+
+.section-title{
+    font-size:2rem;
+}
+
+.back-btn{
+    top:15px;
+    left:15px;
+    height:44px;
+    padding:0 16px;
+    font-size:0.9rem;
+}
+.cards{
+    gap:25px;
+}
+
+.card{
+    border-radius:24px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- BACK BUTTON -->
+
+<button class="back-btn" onclick="history.back()">
+    ← Back
+</button>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="tag">
+        CERTIFICATES • ACHIEVEMENTS • LEARNING JOURNEY
+    </div>
+
+    <h1>
+        My Certificates
+    </h1>
+
+    <p>
+        A collection of certifications, achievements, and learning milestones showcasing my technical journey and continuous growth in development and technology.
+    </p>
+
+    <div class="search-box">
+        <input type="text" placeholder="Search Certificates...">
+    </div>
+
+</section>
+
+<!-- CERTIFICATES -->
+
+<section class="certificates">
+
+    <h2 class="section-title">
+        Featured Certifications
+    </h2>
+
+    <div class="cards">
+
+        <!-- CARD 1 -->
+
+        <div class="card">
+
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="certificate">
+
+            <div class="card-content">
+                <h3>Web Development</h3>
+                <p>Issued by Coursera</p>
+                <p>2025</p>
+            </div>
+
+            <div class="overlay">
+                <button>View Certificate</button>
+            </div>
+
+        </div>
+
+        <!-- CARD 2 -->
+
+        <div class="card">
+
+            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop" alt="certificate">
+
+            <div class="card-content">
+                <h3>Java Programming</h3>
+                <p>Issued by Udemy</p>
+                <p>2025</p>
+            </div>
+
+            <div class="overlay">
+                <button>View Certificate</button>
+            </div>
+
+        </div>
+
+        <!-- CARD 3 -->
+
+        <div class="card">
+
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="certificate">
+
+            <div class="card-content">
+                <h3>Cyber Security</h3>
+                <p>Issued by Google</p>
+                <p>2024</p>
+            </div>
+
+            <div class="overlay">
+                <button>View Certificate</button>
+            </div>
+
+        </div>
+
+        <!-- CARD 4 -->
+
+        <div class="card">
+
+            <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?q=80&w=1200&auto=format&fit=crop" alt="certificate">
+
+            <div class="card-content">
+                <h3>Python Mastery</h3>
+                <p>Issued by IBM</p>
+                <p>2025</p>
+            </div>
+
+            <div class="overlay">
+                <button>View Certificate</button>
+            </div>
+
+        </div>
+
+        <!-- CARD 5 -->
+
+        <div class="card">
+
+            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop" alt="certificate">
+
+            <div class="card-content">
+                <h3>Frontend Development</h3>
+                <p>Issued by FreeCodeCamp</p>
+                <p>2024</p>
+            </div>
+
+            <div class="overlay">
+                <button>View Certificate</button>
+            </div>
+
+        </div>
+
+        <!-- CARD 6 -->
+
+        <div class="card">
+
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" alt="certificate">
+
+            <div class="card-content">
+                <h3>Cloud Computing</h3>
+                <p>Issued by AWS</p>
+                <p>2025</p>
+            </div>
+
+            <div class="overlay">
+                <button>View Certificate</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    © 2025 Vivek Gupta • All Rights Reserved
+</footer>
+
+</body>
+</html>
